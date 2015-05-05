@@ -290,6 +290,7 @@ public class CameraActivity extends ARViewActivity {
 								message, Toast.LENGTH_SHORT);
 						toast.setGravity(Gravity.CENTER, 0, 0);
 						toast.show();
+					
 					}
 				});
 			} catch (IOException e) {
