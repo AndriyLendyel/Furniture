@@ -60,7 +60,7 @@ public class FurnitureListActivity extends Activity {
 				R.drawable.wooden_bench, "Chair", "chair2.obj");
 		items.add(furnitureItem);
 		furnitureItem = new FurnitureListItem(
-				R.drawable.wooden_bench, "Chair", "helper_stool.obj");
+				R.drawable.wooden_bench, "Chair", "helper_stool.obj");		
 		items.add(furnitureItem);
 		furnitureItem = new FurnitureListItem(
 				R.drawable.wooden_bench, "Bed", "bed2.obj");
