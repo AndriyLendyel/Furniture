@@ -66,7 +66,7 @@ public class FurnitureListActivity extends Activity {
 				R.drawable.wooden_bench, "Bed", "bed2.obj");
 		items.add(furnitureItem);
 		furnitureItem = new FurnitureListItem(
-				R.drawable.modern_desk, "Computer desk", "computer_desk.FBX");
+				R.drawable.sofa, "Chair", "stuhl.obj");
 		items.add(furnitureItem);
 	
 	}
