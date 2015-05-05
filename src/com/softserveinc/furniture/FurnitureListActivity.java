@@ -68,7 +68,9 @@ public class FurnitureListActivity extends Activity {
 		furnitureItem = new FurnitureListItem(
 				R.drawable.sofa, "Chair", "stuhl.obj");
 		items.add(furnitureItem);
-	
+		furnitureItem = new FurnitureListItem(
+				R.drawable.sofa, "Couch", "couch1.obj");
+		items.add(furnitureItem);
 	}
 
 	@Override
