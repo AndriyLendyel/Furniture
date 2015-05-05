@@ -19,10 +19,13 @@ import android.widget.Toast;
 
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
+import com.metaio.sdk.jni.BoundingBox;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.ImageStruct;
+import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.TrackingValues;
+import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
 public class CameraActivity extends ARViewActivity {
@@ -117,7 +120,15 @@ public class CameraActivity extends ARViewActivity {
 				IGeometry geometry = metaioSDK.createGeometry(metaioManModel);
 				if (geometry != null) {
 					// Set geometry properties
-					geometry.setScale(1f);
+					BoundingBox boundingBox = geometry.getBoundingBox();
+					Vector3d max = boundingBox.getMax();
+					Vector3d min = boundingBox.getMin();
+					float absX = Math.abs(max.getX()-min.getX());
+					float absY= Math.abs(max.getY()-min.getY());
+					float absZ = Math.abs(max.getZ()-min.getZ());
+					float maxD = Math.max(Math.max(absX, absY), absZ);
+					geometry.setScale(250f/maxD* 5F);
+					geometry.setRotation(new Rotation(90, 0, 0));
 				} else
 					MetaioDebug.log(Log.ERROR, "Error loading geometry: "
 							+ metaioManModel);
