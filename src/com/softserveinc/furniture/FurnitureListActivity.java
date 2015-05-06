@@ -33,49 +33,29 @@ public class FurnitureListActivity extends Activity {
 	private List<FurnitureListItem> items = new ArrayList<FurnitureListItem>();
 
 	private void generateListItems() {
-		FurnitureListItem furnitureItem;
-		furnitureItem = new FurnitureListItem(
-				R.drawable.computer_table, "Computer table", "computer_table.obj");
-		items.add(furnitureItem);
-		furnitureItem = new FurnitureListItem(
-				R.drawable.desk, "Desk", "Desk.obj");
-		items.add(furnitureItem);
-		furnitureItem = new FurnitureListItem(
-				R.drawable.sofa, "Sofa", "sofa.obj");
-		items.add(furnitureItem);
-		furnitureItem = new FurnitureListItem(
-				R.drawable.table, "Table", "table.obj");
-		items.add(furnitureItem);
-		furnitureItem = new FurnitureListItem(
-				R.drawable.wooden_bench, "Wooden bench", "wooden_bench.obj");
-		items.add(furnitureItem);
-		furnitureItem = new FurnitureListItem(
-				R.drawable.wooden_bench, "Bar table", "bar_table.obj");
-		items.add(furnitureItem);
-		furnitureItem = new FurnitureListItem(
-				R.drawable.wooden_bench, "Chair", "chair2.obj");
-		items.add(furnitureItem);
-		furnitureItem = new FurnitureListItem(
-				R.drawable.wooden_bench, "Chair", "helper_stool.obj");		
-		items.add(furnitureItem);
-		furnitureItem = new FurnitureListItem(
-				R.drawable.wooden_bench, "Bed", "bed2.obj");
-		items.add(furnitureItem);
-		furnitureItem = new FurnitureListItem(
-				R.drawable.sofa, "Chair", "stuhl.obj");
-		items.add(furnitureItem);
-		furnitureItem = new FurnitureListItem(
-				R.drawable.sofa, "Couch", "couch1.obj");
-		items.add(furnitureItem);
-		furnitureItem = new FurnitureListItem(
-				R.drawable.armchair, "Armchair", "armchair.obj");
-		items.add(furnitureItem);
-		furnitureItem = new FurnitureListItem(
-				R.drawable.bed, "Bed", "Bed.obj");
-		items.add(furnitureItem);
-		furnitureItem = new FurnitureListItem(
-				R.drawable.furnitura_xena, "Bookshelves", "furniture_xena.obj");
-		items.add(furnitureItem);
+		
+		items.add(new FurnitureListItem(
+				R.drawable.picture1, "Picture", "VaticanMuseumFrame.obj"));
+		items.add( new FurnitureListItem(
+				R.drawable.chair, "Chair", "stuhl.obj"));
+		items.add(new FurnitureListItem(
+				R.drawable.furnitura_xena, "Bookshelves", "furniture_xena.obj"));
+		items.add(new FurnitureListItem(
+				R.drawable.modern_shelves, "Modern shelves", "Modern-Shelves.obj"));
+		items.add(new FurnitureListItem(
+				R.drawable.glass_drawer, "Glass drawer", "GlassDrawer.obj"));
+		items.add(new FurnitureListItem(
+				R.drawable.rack, "Rack", "Rack.obj"));
+		items.add(new FurnitureListItem(
+				R.drawable.kitchen_furniture, "Kitchen furniture", "Kitchen_furniture.obj"));
+		items.add(new FurnitureListItem(
+				R.drawable.sofa1, "Sofa", "sofa.obj"));
+		items.add(new FurnitureListItem(
+				R.drawable.wooden_chair, "Wooden chair", "Wooden_Chair.obj"));
+		items.add(new FurnitureListItem(
+				R.drawable.chaise_orange, "Chair", "chaiseOrange.obj"));
+		items.add(new FurnitureListItem(
+				R.drawable.table, "Table", "table.obj"));
 	}
 
 	@Override

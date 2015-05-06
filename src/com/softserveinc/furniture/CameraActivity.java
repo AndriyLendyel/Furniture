@@ -49,7 +49,7 @@ public class CameraActivity extends ARViewActivity {
 		mGestureHandler = new GestureHandlerAndroid(metaioSDK, mGestureMask);
 		mImageTaken = false;
 		mImageFile = new File(Environment.getExternalStorageDirectory(),
-				"14.jpg");
+				"target.jpg");
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class CameraActivity extends ARViewActivity {
 			// Getting a file path for tracking configuration XML file
 			File trackingConfigFile = AssetsManager
 					.getAssetPathAsFile(getApplicationContext(),
-							"TutorialHelloWorld/Assets/TrackingData_MarkerlessFast.xml");
+							"TrackingData_MarkerlessFast.xml");
 
 			// Assigning tracking configuration
 			boolean result = metaioSDK
@@ -129,8 +129,7 @@ public class CameraActivity extends ARViewActivity {
 					"modelFileName");
 			// Getting a file path for a 3D geometry
 			File metaioManModel = AssetsManager.getAssetPathAsFile(
-					getApplicationContext(), "TutorialHelloWorld/Assets/"
-							+ modelFileName);
+					getApplicationContext(), modelFileName);
 			if (metaioManModel != null) {
 				// Loading 3D geometry
 				IGeometry geometry = metaioSDK.createGeometry(metaioManModel);
