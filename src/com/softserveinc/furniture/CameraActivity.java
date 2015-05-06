@@ -14,20 +14,28 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
 import com.metaio.sdk.ARViewActivity;
+import com.metaio.sdk.GestureHandlerAndroid;
 import com.metaio.sdk.MetaioDebug;
+import com.metaio.sdk.jni.BoundingBox;
+import com.metaio.sdk.jni.GestureHandler;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.ImageStruct;
+import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.TrackingValues;
+import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
 public class CameraActivity extends ARViewActivity {
 
 	private MetaioSDKCallbackHandler mCallbackHandler;
+	private GestureHandlerAndroid mGestureHandler;
+	private int mGestureMask;
 	private File mImageFile;
 	private TrackingValues mTrackingValues;
 	boolean mImageTaken;
@@ -36,8 +44,9 @@ public class CameraActivity extends ARViewActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-
+		mGestureMask = GestureHandler.GESTURE_ALL;
 		mCallbackHandler = new MetaioSDKCallbackHandler();
+		mGestureHandler = new GestureHandlerAndroid(metaioSDK, mGestureMask);
 		mImageTaken = false;
 		mImageFile = new File(Environment.getExternalStorageDirectory(),
 				"14.jpg");
@@ -59,6 +68,16 @@ public class CameraActivity extends ARViewActivity {
 
 	}
 
+	@Override
+	public boolean onTouch(View v, MotionEvent event)
+	{
+		super.onTouch(v, event);
+
+		mGestureHandler.onTouch(v, event);
+
+		return true;
+	}
+	
 	@Override
 	public void onDrawFrame() {
 		super.onDrawFrame();
@@ -117,7 +136,16 @@ public class CameraActivity extends ARViewActivity {
 				IGeometry geometry = metaioSDK.createGeometry(metaioManModel);
 				if (geometry != null) {
 					// Set geometry properties
-					geometry.setScale(1f);
+					BoundingBox boundingBox = geometry.getBoundingBox();
+					Vector3d max = boundingBox.getMax();
+					Vector3d min = boundingBox.getMin();
+					float absX = Math.abs(max.getX() - min.getX());
+					float absY = Math.abs(max.getY() - min.getY());
+					float absZ = Math.abs(max.getZ() - min.getZ());
+					float maxD = Math.max(Math.max(absX, absY), absZ);
+					geometry.setScale(250f / maxD);
+					geometry.setRotation(new Rotation((float) (Math.PI/2d), 0, (float) (Math.PI/2d)));
+					mGestureHandler.addObject(geometry, 1);
 				} else
 					MetaioDebug.log(Log.ERROR, "Error loading geometry: "
 							+ metaioManModel);
@@ -194,7 +222,6 @@ public class CameraActivity extends ARViewActivity {
 				public void run() {
 					if (filePath.getPath().length() > 0) {
 						metaioSDK.setImage(filePath);
-						// mLayoutGeometries.setVisibility(View.VISIBLE);
 					}
 				}
 			});

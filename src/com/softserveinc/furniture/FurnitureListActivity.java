@@ -1,6 +1,5 @@
 package com.softserveinc.furniture;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
-
-import com.metaio.sdk.ARELActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.tools.io.AssetsManager;
 
@@ -77,6 +73,9 @@ public class FurnitureListActivity extends Activity {
 		furnitureItem = new FurnitureListItem(
 				R.drawable.bed, "Bed", "Bed.obj");
 		items.add(furnitureItem);
+		furnitureItem = new FurnitureListItem(
+				R.drawable.furnitura_xena, "Bookshelves", "furniture_xena.obj");
+		items.add(furnitureItem);
 	}
 
 	@Override
@@ -100,10 +99,6 @@ public class FurnitureListActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
-				FurnitureListItem Selecteditem = items.get(+position);
-				Toast.makeText(getApplicationContext(),
-						Selecteditem.getTitle(), Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(getApplicationContext(),  CameraActivity.class);
 				intent.putExtra("modelFileName",items.get(position).getModelName());
 				startActivity(intent);
@@ -167,18 +162,7 @@ public class FurnitureListActivity extends Activity {
 		protected void onPostExecute(Boolean result) {
 			mProgress.setVisibility(View.GONE);
 
-			if (result) {
-				// WebSettings settings = mWebView.getSettings();
-
-				// settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-				// settings.setJavaScriptEnabled(true);
-				//
-				// mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-				// mWebView.setWebViewClient(new WebViewHandler());
-				// mWebView.loadUrl("file:///android_asset/Menu/index.html");
-				// mWebView.setVisibility(View.VISIBLE);
-				// new in
-			} else {
+			if (!result) {
 				MetaioDebug.log(Log.ERROR,
 						"Error extracting assets, closing the application...");
 				finish();
