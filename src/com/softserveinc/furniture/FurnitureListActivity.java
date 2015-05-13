@@ -56,6 +56,8 @@ public class FurnitureListActivity extends Activity {
 				R.drawable.chaise_orange, "Chair", "chaiseOrange.obj"));
 		items.add(new FurnitureListItem(
 				R.drawable.table, "Table", "table.obj"));
+		items.add(new FurnitureListItem(
+				R.drawable.table, "LOGO", "Logo___v7.obj"));
 	}
 
 	@Override

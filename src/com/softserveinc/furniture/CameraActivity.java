@@ -142,7 +142,7 @@ public class CameraActivity extends ARViewActivity {
 					float absY = Math.abs(max.getY() - min.getY());
 					float absZ = Math.abs(max.getZ() - min.getZ());
 					float maxD = Math.max(Math.max(absX, absY), absZ);
-					geometry.setScale(250f / maxD);
+					geometry.setScale(250f / maxD * 4f);
 					geometry.setRotation(new Rotation((float) (Math.PI/2d), 0, (float) (Math.PI/2d)));
 					mGestureHandler.addObject(geometry, 1);
 				} else
