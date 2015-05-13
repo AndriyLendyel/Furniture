@@ -3,7 +3,10 @@ package com.softserveinc.furniture;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.media.MediaScannerConnection;
@@ -16,6 +19,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.metaio.sdk.ARViewActivity;
@@ -28,6 +34,7 @@ import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.ImageStruct;
 import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.TrackingValues;
+import com.metaio.sdk.jni.Vector2d;
 import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
@@ -39,17 +46,47 @@ public class CameraActivity extends ARViewActivity {
 	private File mImageFile;
 	private TrackingValues mTrackingValues;
 	boolean mImageTaken;
+	private List<IGeometry> itemsGeometry = new ArrayList<IGeometry>();
+	private Vector2d mMidPoint;
+
+	private ListView listView;
+	private List<FurnitureListItem> items = new ArrayList<FurnitureListItem>();
+
+	private void generateListItems() {
+		items.add(new FurnitureListItem(R.drawable.picture1, "Picture",
+				"VaticanMuseumFrame.obj"));
+		items.add(new FurnitureListItem(R.drawable.chair, "Chair", "stuhl.obj"));
+		items.add(new FurnitureListItem(R.drawable.furnitura_xena,
+				"Bookshelves", "furniture_xena.obj"));
+		items.add(new FurnitureListItem(R.drawable.modern_shelves,
+				"Modern shelves", "Modern-Shelves.obj"));
+		items.add(new FurnitureListItem(R.drawable.glass_drawer,
+				"Glass drawer", "GlassDrawer.obj"));
+		items.add(new FurnitureListItem(R.drawable.rack, "Rack", "Rack.obj"));
+		items.add(new FurnitureListItem(R.drawable.kitchen_furniture,
+				"Kitchen furniture", "Kitchen_furniture.obj"));
+		items.add(new FurnitureListItem(R.drawable.sofa1, "Sofa", "sofa.obj"));
+		items.add(new FurnitureListItem(R.drawable.wooden_chair,
+				"Wooden chair", "Wooden_Chair.obj"));
+		items.add(new FurnitureListItem(R.drawable.chaise_orange, "Chair",
+				"chaiseOrange.obj"));
+		items.add(new FurnitureListItem(R.drawable.table, "Table", "table.obj"));
+		items.add(new FurnitureListItem(R.drawable.table, "LOGO",
+				"Logo___v7.obj"));
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		generateListItems();
 		mGestureMask = GestureHandler.GESTURE_ALL;
 		mCallbackHandler = new MetaioSDKCallbackHandler();
 		mGestureHandler = new GestureHandlerAndroid(metaioSDK, mGestureMask);
 		mImageTaken = false;
 		mImageFile = new File(Environment.getExternalStorageDirectory(),
 				"target.jpg");
+		mMidPoint = new Vector2d();
 	}
 
 	@Override
@@ -63,21 +100,19 @@ public class CameraActivity extends ARViewActivity {
 			// values
 			metaioSDK.setImage(mImageFile);
 			metaioSDK.setCosOffset(1, mTrackingValues);
-
 		}
 
 	}
 
 	@Override
-	public boolean onTouch(View v, MotionEvent event)
-	{
+	public boolean onTouch(View v, MotionEvent event) {
 		super.onTouch(v, event);
 
 		mGestureHandler.onTouch(v, event);
 
 		return true;
 	}
-	
+
 	@Override
 	public void onDrawFrame() {
 		super.onDrawFrame();
@@ -100,55 +135,108 @@ public class CameraActivity extends ARViewActivity {
 		// Attaching layout to the activity
 		return R.layout.camera_activity;
 	}
-	
+
 	@Override
-	protected IMetaioSDKCallback getMetaioSDKCallbackHandler()
-	{
+	protected IMetaioSDKCallback getMetaioSDKCallbackHandler() {
 		return mCallbackHandler;
+	}
+
+	@Override
+	public void onSurfaceChanged(int width, int height) {
+		super.onSurfaceChanged(width, height);
+
+		// Update mid point of the view
+		mMidPoint.setX(width / 2f);
+		mMidPoint.setY(height / 2f);
 	}
 
 	public void onButtonClick(View v) {
 		finish();
 	}
 
+	public void onOpenButtonClick(View v) {
+		if (listView == null) {
+			listView = (ListView) findViewById(R.id.list);
+
+			CustomListViewAdapter adapter = new CustomListViewAdapter(this,
+					R.id.furnitureListItem, items);
+			listView.setAdapter(adapter);
+			listView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					Vector3d translation = metaioSDK
+							.get3DPositionFromViewportCoordinates(1, mMidPoint);
+					IGeometry item = itemsGeometry.get(position);
+					if (item != null) {
+						item.setTranslation(translation);
+						if (item.isVisible()) {
+							item.setVisible(false);
+						} else {
+							item.setVisible(true);
+						}
+					}
+				}
+			});
+		}
+
+		if (listView.getVisibility() == View.GONE) {
+			listView.setVisibility(View.VISIBLE);
+		} else {
+			listView.setVisibility(View.GONE);
+		}
+	}
+
 	@Override
 	protected void loadContents() {
-
 		try {
 			// Getting a file path for tracking configuration XML file
-			File trackingConfigFile = AssetsManager
-					.getAssetPathAsFile(getApplicationContext(),
-							"TrackingData_MarkerlessFast.xml");
+			File trackingConfigFile = AssetsManager.getAssetPathAsFile(
+					getApplicationContext(), "TrackingData_MarkerlessFast.xml");
 
 			// Assigning tracking configuration
 			boolean result = metaioSDK
 					.setTrackingConfiguration(trackingConfigFile);
 			MetaioDebug.log("Tracking data loaded: " + result);
 
-			String modelFileName = getIntent().getExtras().getString(
+			String selectedModelFileName = getIntent().getExtras().getString(
 					"modelFileName");
-			// Getting a file path for a 3D geometry
-			File metaioManModel = AssetsManager.getAssetPathAsFile(
-					getApplicationContext(), modelFileName);
-			if (metaioManModel != null) {
-				// Loading 3D geometry
-				IGeometry geometry = metaioSDK.createGeometry(metaioManModel);
-				if (geometry != null) {
-					// Set geometry properties
-					BoundingBox boundingBox = geometry.getBoundingBox();
-					Vector3d max = boundingBox.getMax();
-					Vector3d min = boundingBox.getMin();
-					float absX = Math.abs(max.getX() - min.getX());
-					float absY = Math.abs(max.getY() - min.getY());
-					float absZ = Math.abs(max.getZ() - min.getZ());
-					float maxD = Math.max(Math.max(absX, absY), absZ);
-					geometry.setScale(250f / maxD * 4f);
-					geometry.setRotation(new Rotation((float) (Math.PI/2d), 0, (float) (Math.PI/2d)));
-					mGestureHandler.addObject(geometry, 1);
-				} else
-					MetaioDebug.log(Log.ERROR, "Error loading geometry: "
-							+ metaioManModel);
+			File filepath = null;
+			IGeometry item;
+			for (int i = 0; i < items.size(); i++) {
+				String modelFileName = items.get(i).getModelName();
+				filepath = AssetsManager.getAssetPathAsFile(
+						getApplicationContext(), modelFileName);
+				if (filepath != null) {
+					item = metaioSDK.createGeometry(filepath);
+
+					if (item != null) {
+						BoundingBox boundingBox = item.getBoundingBox();
+						Vector3d max = boundingBox.getMax();
+						Vector3d min = boundingBox.getMin();
+						float absX = Math.abs(max.getX() - min.getX());
+						float absY = Math.abs(max.getY() - min.getY());
+						float absZ = Math.abs(max.getZ() - min.getZ());
+						float maxD = Math.max(Math.max(absX, absY), absZ);
+						item.setScale(250f / maxD * 4f);
+						item.setRotation(new Rotation((float) (Math.PI / 2d),
+								0, (float) (Math.PI / 2d)));
+
+						mGestureHandler.addObject(item, i + 1);
+						itemsGeometry.add(item);
+						if (selectedModelFileName.equals(modelFileName)) {
+							item.setVisible(true);
+						} else {
+							item.setVisible(false);
+						}
+					} else {
+						MetaioDebug.log(Log.ERROR, "Error loading geometry: "
+								+ filepath);
+					}
+				}
 			}
+
 		} catch (Exception e) {
 			MetaioDebug.printStackTrace(Log.ERROR, e);
 		}
@@ -305,7 +393,7 @@ public class CameraActivity extends ARViewActivity {
 								message, Toast.LENGTH_SHORT);
 						toast.setGravity(Gravity.CENTER, 0, 0);
 						toast.show();
-					
+
 					}
 				});
 			} catch (IOException e) {

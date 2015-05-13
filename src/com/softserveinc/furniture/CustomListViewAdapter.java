@@ -16,12 +16,13 @@ public class CustomListViewAdapter extends ArrayAdapter<FurnitureListItem> {
 
 	Context context;
 
-	private  List<FurnitureListItem> items = new ArrayList<FurnitureListItem>();
-	
-	public CustomListViewAdapter(Context context, int resourceId, List<FurnitureListItem> items) {
+	private List<FurnitureListItem> items = new ArrayList<FurnitureListItem>();
+
+	public CustomListViewAdapter(Context context, int resourceId,
+			List<FurnitureListItem> items) {
 		super(context, resourceId, items);
 		this.context = context;
-		this.items=items;
+		this.items = items;
 	}
 
 	/* private view holder class */
@@ -38,14 +39,20 @@ public class CustomListViewAdapter extends ArrayAdapter<FurnitureListItem> {
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.list_item, null);
 			holder = new ViewHolder();
-			holder.txtTitle = (TextView) convertView.findViewById(R.id.furnitureTitle);
-			holder.imageView = (ImageView) convertView.findViewById(R.id.furnitureImage);
+			holder.txtTitle = (TextView) convertView
+					.findViewById(R.id.furnitureTitle);
+			holder.imageView = (ImageView) convertView
+					.findViewById(R.id.furnitureImage);
+
 			convertView.setTag(holder);
 		} else
 			holder = (ViewHolder) convertView.getTag();
 
-		 holder.txtTitle.setText(items.get(position).getTitle());
-		 holder.imageView.setImageResource(items.get(position).getImageId());
+		if (context instanceof CameraActivity) {
+			holder.txtTitle.setVisibility(View.GONE);
+		}
+		holder.txtTitle.setText(items.get(position).getTitle());
+		holder.imageView.setImageResource(items.get(position).getImageId());
 
 		return convertView;
 	}
