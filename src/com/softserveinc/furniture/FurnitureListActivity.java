@@ -32,39 +32,11 @@ public class FurnitureListActivity extends Activity {
 
 	private List<FurnitureListItem> items = new ArrayList<FurnitureListItem>();
 
-	private void generateListItems() {
-		
-		items.add(new FurnitureListItem(
-				R.drawable.picture1, "Picture", "VaticanMuseumFrame.obj"));
-		items.add( new FurnitureListItem(
-				R.drawable.chair, "Chair", "stuhl.obj"));
-		items.add(new FurnitureListItem(
-				R.drawable.furnitura_xena, "Bookshelves", "furniture_xena.obj"));
-		items.add(new FurnitureListItem(
-				R.drawable.modern_shelves, "Modern shelves", "Modern-Shelves.obj"));
-		items.add(new FurnitureListItem(
-				R.drawable.glass_drawer, "Glass drawer", "GlassDrawer.obj"));
-		items.add(new FurnitureListItem(
-				R.drawable.rack, "Rack", "Rack.obj"));
-		items.add(new FurnitureListItem(
-				R.drawable.kitchen_furniture, "Kitchen furniture", "Kitchen_furniture.obj"));
-		items.add(new FurnitureListItem(
-				R.drawable.sofa1, "Sofa", "sofa.obj"));
-		items.add(new FurnitureListItem(
-				R.drawable.wooden_chair, "Wooden chair", "Wooden_Chair.obj"));
-		items.add(new FurnitureListItem(
-				R.drawable.chaise_orange, "Chair", "chaiseOrange.obj"));
-		items.add(new FurnitureListItem(
-				R.drawable.table, "Table", "table.obj"));
-		items.add(new FurnitureListItem(
-				R.drawable.table, "LOGO", "Logo___v7.obj"));
-	}
-
-	@Override
+		@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_furniture_list);
-		generateListItems();
+		items = ((FurnitureApplication) this.getApplication()).getItemsList();
 		// Enable metaio SDK log messages based on build configuration
 		MetaioDebug.enableLogging(BuildConfig.DEBUG);
 
