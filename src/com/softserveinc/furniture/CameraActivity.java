@@ -94,7 +94,7 @@ public class CameraActivity extends ARViewActivity {
 	public void onDrawFrame() {
 		super.onDrawFrame();
 
-		// reset the location and scale of the geometries
+		// reset the location 
 		if (mImageTaken == true) {
 			// load the dummy tracking config file
 			boolean result = metaioSDK.setTrackingConfiguration("DUMMY");
@@ -221,16 +221,12 @@ public class CameraActivity extends ARViewActivity {
 
 	@Override
 	protected void onGeometryTouched(IGeometry geometry) {
-		// Not used in this tutorial
 	}
 
 	// called when the save screenshot button has been pressed
 	public void onSaveScreen(View v) {
 		// request screen shot
 		metaioSDK.requestScreenshot();
-
-		// take a picture using the SDK and save it to external storage
-	//	metaioSDK.requestCameraImage(mImageFile);
 	}
 
 	final class MetaioSDKCallbackHandler extends IMetaioSDKCallback {
@@ -272,24 +268,6 @@ public class CameraActivity extends ARViewActivity {
 					mGUIView.setVisibility(View.VISIBLE);
 				}
 			});
-		}
-
-		// callback function for taking images using SDK
-		@Override
-		public void onCameraImageSaved(final File filePath) {
-			// save the tracking values in case the application exits improperly
-			mTrackingValues = metaioSDK.getTrackingValues(1);
-			// mImageTaken = true;
-
-			runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					if (filePath.getPath().length() > 0) {
-						metaioSDK.setImage(filePath);
-					}
-				}
-			});
-
 		}
 
 		@Override
