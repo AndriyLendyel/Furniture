@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ public class CustomListViewAdapter extends ArrayAdapter<FurnitureListItem> {
 	Context context;
 
 	private List<FurnitureListItem> items = new ArrayList<FurnitureListItem>();
+	private List<Integer> selectedItems = new ArrayList<Integer>();
 
 	public CustomListViewAdapter(Context context, int resourceId,
 			List<FurnitureListItem> items) {
@@ -53,7 +55,22 @@ public class CustomListViewAdapter extends ArrayAdapter<FurnitureListItem> {
 		}
 		holder.txtTitle.setText(items.get(position).getTitle());
 		holder.imageView.setImageResource(items.get(position).getImageId());
+		
+		if (selectedItems.contains(position)){
+			holder.imageView.setBackgroundColor(Color.GREEN);
+		} else {
+			holder.imageView.setBackgroundColor(android.R.color.transparent);
+		}
 
 		return convertView;
+	}
+
+	public void addOrRemoveSelectedItem(int selectedItem) {
+		if (selectedItems.contains(selectedItems)){
+			selectedItems.remove(selectedItems);
+		} else {
+			selectedItems.add(selectedItem);
+		}
+		notifyDataSetChanged();
 	}
 }

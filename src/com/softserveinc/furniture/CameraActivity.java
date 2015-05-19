@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.media.MediaScannerConnection;
@@ -49,6 +48,7 @@ public class CameraActivity extends ARViewActivity {
 	boolean mImageTaken;
 	private List<IGeometry> itemsGeometry = new ArrayList<IGeometry>();
 	private Vector2d mMidPoint;
+	private int selectedItem=-1;
 
 	private ListView listView;
 	private List<FurnitureListItem> items = new ArrayList<FurnitureListItem>();
@@ -137,14 +137,16 @@ public class CameraActivity extends ARViewActivity {
 			View relLayout = (RelativeLayout) findViewById(R.id.listLayout);
 			listView = (ListView) relLayout.findViewById(R.id.list);
 
-			CustomListViewAdapter adapter = new CustomListViewAdapter(this,
+			final CustomListViewAdapter adapter = new CustomListViewAdapter(this,
 					R.id.furnitureListItem, items);
 			listView.setAdapter(adapter);
+			adapter.addOrRemoveSelectedItem(selectedItem);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
+					adapter.addOrRemoveSelectedItem(position);					
 					Vector3d translation = metaioSDK
 							.get3DPositionFromViewportCoordinates(1, mMidPoint);
 					IGeometry item = itemsGeometry.get(position);
@@ -206,6 +208,7 @@ public class CameraActivity extends ARViewActivity {
 						itemsGeometry.add(item);
 						if (selectedModelFileName.equals(modelFileName)) {
 							item.setVisible(true);
+							selectedItem = i;
 						} else {
 							item.setVisible(false);
 						}
