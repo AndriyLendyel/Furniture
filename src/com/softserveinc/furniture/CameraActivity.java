@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.metaio.sdk.ARViewActivity;
@@ -133,7 +134,8 @@ public class CameraActivity extends ARViewActivity {
 
 	public void onOpenButtonClick(View v) {
 		if (listView == null) {
-			listView = (ListView) findViewById(R.id.list);
+			View relLayout = (RelativeLayout) findViewById(R.id.listLayout);
+			listView = (ListView) relLayout.findViewById(R.id.list);
 
 			CustomListViewAdapter adapter = new CustomListViewAdapter(this,
 					R.id.furnitureListItem, items);
