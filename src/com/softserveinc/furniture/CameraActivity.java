@@ -34,6 +34,7 @@ import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.ImageStruct;
 import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.TrackingValues;
+import com.metaio.sdk.jni.TrackingValuesVector;
 import com.metaio.sdk.jni.Vector2d;
 import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
@@ -48,7 +49,7 @@ public class CameraActivity extends ARViewActivity {
 	boolean mImageTaken;
 	private List<IGeometry> itemsGeometry = new ArrayList<IGeometry>();
 	private Vector2d mMidPoint;
-	private int selectedItem=-1;
+	private int selectedItem = -1;
 
 	private ListView listView;
 	private List<FurnitureListItem> items = new ArrayList<FurnitureListItem>();
@@ -95,7 +96,7 @@ public class CameraActivity extends ARViewActivity {
 	public void onDrawFrame() {
 		super.onDrawFrame();
 
-		// reset the location 
+		// reset the location
 		if (mImageTaken == true) {
 			// load the dummy tracking config file
 			boolean result = metaioSDK.setTrackingConfiguration("DUMMY");
@@ -137,8 +138,8 @@ public class CameraActivity extends ARViewActivity {
 			View relLayout = (RelativeLayout) findViewById(R.id.listLayout);
 			listView = (ListView) relLayout.findViewById(R.id.list);
 
-			final CustomListViewAdapter adapter = new CustomListViewAdapter(this,
-					R.id.furnitureListItem, items);
+			final CustomListViewAdapter adapter = new CustomListViewAdapter(
+					this, R.id.furnitureListItem, items);
 			listView.setAdapter(adapter);
 			adapter.addOrRemoveSelectedItem(selectedItem);
 			listView.setOnItemClickListener(new OnItemClickListener() {
@@ -146,7 +147,7 @@ public class CameraActivity extends ARViewActivity {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					adapter.addOrRemoveSelectedItem(position);					
+					adapter.addOrRemoveSelectedItem(position);
 					Vector3d translation = metaioSDK
 							.get3DPositionFromViewportCoordinates(1, mMidPoint);
 					IGeometry item = itemsGeometry.get(position);
@@ -235,6 +236,23 @@ public class CameraActivity extends ARViewActivity {
 	}
 
 	final class MetaioSDKCallbackHandler extends IMetaioSDKCallback {
+
+		@Override
+		public void onTrackingEvent(TrackingValuesVector trackingValues) {
+			// if we detect any target, we bind the loaded geometry to this
+			// target
+			for (int i = 0; i < trackingValues.size(); i++) {
+				final TrackingValues tv = trackingValues.get(i);
+				if (tv.isTrackingState()) {
+					for (int j = 0; j < itemsGeometry.size(); j++) {
+						itemsGeometry.get(j).setCoordinateSystemID(
+								tv.getCoordinateSystemID());
+						// break;
+					}
+				}
+			}
+		}
+
 		/**
 		 * Get path to Pictures directory if it exists
 		 * 

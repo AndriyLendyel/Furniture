@@ -59,15 +59,15 @@ public class CustomListViewAdapter extends ArrayAdapter<FurnitureListItem> {
 		if (selectedItems.contains(position)){
 			holder.imageView.setBackgroundColor(Color.GREEN);
 		} else {
-			holder.imageView.setBackgroundColor(android.R.color.transparent);
+			holder.imageView.setBackgroundColor(Color.TRANSPARENT);
 		}
 
 		return convertView;
 	}
 
 	public void addOrRemoveSelectedItem(int selectedItem) {
-		if (selectedItems.contains(selectedItems)){
-			selectedItems.remove(selectedItems);
+		if (selectedItems.contains(selectedItem)){
+			selectedItems.remove((Integer)selectedItem);
 		} else {
 			selectedItems.add(selectedItem);
 		}
