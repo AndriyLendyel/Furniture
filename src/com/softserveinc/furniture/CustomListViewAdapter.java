@@ -57,9 +57,9 @@ public class CustomListViewAdapter extends ArrayAdapter<FurnitureListItem> {
 		holder.imageView.setImageResource(items.get(position).getImageId());
 		
 		if (selectedItems.contains(position)){
-			holder.imageView.setBackgroundColor(Color.GREEN);
+			holder.imageView.setBackgroundResource(R.drawable.frame);
 		} else {
-			holder.imageView.setBackgroundColor(Color.TRANSPARENT);
+			holder.imageView.setBackgroundResource(Color.TRANSPARENT);
 		}
 
 		return convertView;

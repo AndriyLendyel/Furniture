@@ -175,7 +175,7 @@ public class CameraActivity extends ARViewActivity {
 		try {
 			// Getting a file path for tracking configuration XML file
 			File trackingConfigFile = AssetsManager.getAssetPathAsFile(
-					getApplicationContext(), "TrackingData_MarkerlessFast.xml");
+					getApplicationContext(), "TrackingData_MarkerId.xml");
 
 			// Assigning tracking configuration
 			boolean result = metaioSDK

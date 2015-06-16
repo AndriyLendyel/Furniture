@@ -1,63 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
-    <ImageButton
-        android:id="@+id/button1"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="end"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/transparent"
-        android:onClick="onButtonClick"
-        android:src="@drawable/cancel" />
 
     <RelativeLayout
         android:id="@+id/listLayout"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
+        android:layout_above="@+id/button2"
         android:background="@null" >
-    
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
-        android:visibility="gone" >
-    </ListView>
 
-    <ImageButton
-        android:id="@+id/buttonOpenList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start|center_vertical"
-        android:layout_marginLeft="-15dp"
-        android:background="@android:color/transparent"
-        android:onClick="onOpenButtonClick"
-        android:src="@drawable/arrow" 
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/list"/>
-    
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:visibility="gone" >
+        </ListView>
+
+        <ImageButton
+            android:id="@+id/buttonOpenList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginLeft="-15dp"
+            android:layout_toRightOf="@+id/list"
+            android:background="@android:color/transparent"
+            android:onClick="onOpenButtonClick"
+            android:src="@drawable/arrow" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/buttonBar"
-        style="@android:style/ButtonBar"
-        android:layout_width="120dp"
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@null"
-        android:orientation="vertical" >
+        android:layout_alignParentBottom="true"
+        android:onClick="onSaveScreen"
+        android:textSize="10pt"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:text="Save Screen" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onSaveScreen"
-            android:text="Save Screen" />
-    </LinearLayout>
-
-</FrameLayout>
+</RelativeLayout>

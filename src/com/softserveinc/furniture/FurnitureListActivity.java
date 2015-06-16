@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,8 +18,6 @@ import com.metaio.sdk.MetaioDebug;
 import com.metaio.tools.io.AssetsManager;
 
 public class FurnitureListActivity extends Activity {
-
-	private View mProgress;
 
 	/**
 	 * Task that will extract all the assets
@@ -39,8 +35,6 @@ public class FurnitureListActivity extends Activity {
 		items = ((FurnitureApplication) this.getApplication()).getItemsList();
 		// Enable metaio SDK log messages based on build configuration
 		MetaioDebug.enableLogging(BuildConfig.DEBUG);
-
-		mProgress = findViewById(R.id.progress);
 
 		listView = (ListView) findViewById(R.id.list);
 
@@ -65,25 +59,6 @@ public class FurnitureListActivity extends Activity {
 		mTask.execute(0);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.furniture_list, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 	/**
 	 * This task extracts all the assets to an external or internal location to
 	 * make them accessible to Metaio SDK
@@ -92,7 +67,6 @@ public class FurnitureListActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
-			mProgress.setVisibility(View.VISIBLE);
 		}
 
 		@Override
@@ -114,8 +88,6 @@ public class FurnitureListActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Boolean result) {
-			mProgress.setVisibility(View.GONE);
-
 			if (!result) {
 				MetaioDebug.log(Log.ERROR,
 						"Error extracting assets, closing the application...");
