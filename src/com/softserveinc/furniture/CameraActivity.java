@@ -169,6 +169,20 @@ public class CameraActivity extends ARViewActivity {
 			listView.setVisibility(View.GONE);
 		}
 	}
+	
+	public void onInfoButtonClick(View v) {
+		Toast toast = Toast.makeText(getApplicationContext(),
+				"Info button click", Toast.LENGTH_SHORT);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.show();
+	}
+	
+	public void onStoreButtonClick(View v) {
+		Toast toast = Toast.makeText(getApplicationContext(),
+				"Store button click", Toast.LENGTH_SHORT);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.show();
+	}
 
 	@Override
 	protected void loadContents() {
