@@ -11,6 +11,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.OnScanCompletedListener;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -53,11 +54,19 @@ public class CameraActivity extends ARViewActivity {
 
 	private ListView listView;
 	private List<FurnitureListItem> items = new ArrayList<FurnitureListItem>();
+	/**
+	 * Task that will extract all the assets
+	 */
+	private AssetsExtracter mTask;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		// Enable metaio SDK log messages based on build configuration
+		MetaioDebug.enableLogging(BuildConfig.DEBUG);
+		// extract all the assets
+		mTask = new AssetsExtracter();
+		mTask.execute(0);
 		items = ((FurnitureApplication) this.getApplication()).getItemsList();
 		mGestureMask = GestureHandler.GESTURE_ALL;
 		mCallbackHandler = new MetaioSDKCallbackHandler();
@@ -196,8 +205,8 @@ public class CameraActivity extends ARViewActivity {
 					.setTrackingConfiguration(trackingConfigFile);
 			MetaioDebug.log("Tracking data loaded: " + result);
 
-			String selectedModelFileName = getIntent().getExtras().getString(
-					"modelFileName");
+		//	String selectedModelFileName = getIntent().getExtras().getString(
+		//			"modelFileName");
 			File filepath = null;
 			IGeometry item;
 			for (int i = 0; i < items.size(); i++) {
@@ -221,12 +230,13 @@ public class CameraActivity extends ARViewActivity {
 
 						mGestureHandler.addObject(item, i + 1);
 						itemsGeometry.add(item);
-						if (selectedModelFileName.equals(modelFileName)) {
-							item.setVisible(true);
-							selectedItem = i;
-						} else {
-							item.setVisible(false);
-						}
+				//		if (selectedModelFileName.equals(modelFileName)) {
+				//			item.setVisible(true);
+				//			selectedItem = i;
+				//		} else {
+				//			item.setVisible(false);
+				//		}
+						item.setVisible(false);
 					} else {
 						MetaioDebug.log(Log.ERROR, "Error loading geometry: "
 								+ filepath);
@@ -390,6 +400,43 @@ public class CameraActivity extends ARViewActivity {
 				});
 			} catch (IOException e) {
 				MetaioDebug.printStackTrace(Log.ERROR, e);
+			}
+		}
+	}
+	
+	/**
+	 * This task extracts all the assets to an external or internal location to
+	 * make them accessible to Metaio SDK
+	 */
+	private class AssetsExtracter extends AsyncTask<Integer, Integer, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+		}
+
+		@Override
+		protected Boolean doInBackground(Integer... params) {
+			try {
+				// Extract all assets except Menu. Overwrite existing files for
+				// debug build only.
+				final String[] ignoreList = { "Menu", "webkit", "sounds",
+						"images", "webkitsec" };
+				AssetsManager.extractAllAssets(getApplicationContext(), "",
+						ignoreList, BuildConfig.DEBUG);
+			} catch (IOException e) {
+				MetaioDebug.printStackTrace(Log.ERROR, e);
+				return false;
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			if (!result) {
+				MetaioDebug.log(Log.ERROR,
+						"Error extracting assets, closing the application...");
+				finish();
 			}
 		}
 	}
