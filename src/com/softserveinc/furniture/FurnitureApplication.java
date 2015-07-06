@@ -21,7 +21,9 @@ public class FurnitureApplication extends Application {
 					new FurnitureListItem(R.drawable.wooden_chair, "Wooden chair", "Wooden_Chair.obj"),
 					new FurnitureListItem(R.drawable.chaise_orange, "Chair", "chaiseOrange.obj"),
 					new FurnitureListItem(R.drawable.table, "Table", "table.obj"),
-					new FurnitureListItem(R.drawable.table, "LOGO", "Logo___v7.obj")));
+					new FurnitureListItem(R.drawable.table, "LOGO", "armchair.obj"),
+					new FurnitureListItem(R.drawable.table, "LOGO", "mini_estereo_cycles_baked.obj"),
+					new FurnitureListItem(R.drawable.table, "LOGO", "Testcube.obj")));
 
 	public List<FurnitureListItem> getItemsList() {
 		return items;

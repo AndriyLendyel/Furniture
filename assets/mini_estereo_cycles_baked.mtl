@@ -1,0 +1,42 @@
+# Blender MTL File: 'mini_estereo_cycles_baked.blend'
+# Material Count: 4
+
+newmtl metalic
+Ns 94.117647
+Ka 0.000000 0.000000 0.000000
+Kd 0.401968 0.401968 0.401968
+Ks 0.634021 0.634021 0.634021
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Button.png
+
+newmtl speaker_soft-material
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd Speaker_front.png
+
+newmtl speaker_wood-material
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd Speaker_base.png
+
+newmtl stereo-core-material
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd Base.png
