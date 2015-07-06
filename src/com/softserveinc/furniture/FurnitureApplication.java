@@ -17,7 +17,7 @@ public class FurnitureApplication extends Application {
 					new FurnitureListItem(R.drawable.air_conditioning, "Air conditioning", "internal-air-conditioning.obj"),
 					new FurnitureListItem(R.drawable.lavatory, "Lavatory", "Lavatory.obj"),
 					new FurnitureListItem(R.drawable.statue, "Statue", "Statue.obj"),
-					new FurnitureListItem(R.drawable.basketball, "Basketball", "Basketball.blend")));
+					new FurnitureListItem(R.drawable.basketball, "Basketball", "Basketball.obj")));
 				
 	public List<FurnitureListItem> getItemsList() {
 		return items;
