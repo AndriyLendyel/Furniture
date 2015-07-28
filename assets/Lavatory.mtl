@@ -11,7 +11,6 @@ d 1.000000
 illum 2
 map_Kd metal.png
 
-
 newmtl Crockery
 Ns 92.156863
 Ka 0.000000 0.000000 0.000000
@@ -20,5 +19,4 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Base1.png
-
+map_Kd Base.png

@@ -1,0 +1,133 @@
+# Blender MTL File: 'ClothesWashingMachine.blend'
+# Material Count: 13
+
+newmtl black-glass
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.031711 0.031711 0.031711
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 0.978723
+illum 2
+map_Kd clothes_washing_machine_cycles.jpg
+
+newmtl controles
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.005096 0.005096 0.005096
+Ks 0.094230 0.094230 0.094230
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd clothes_washing_machine_cycles.jpg
+
+newmtl drum-holed
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.512000 0.512000 0.512000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd clothes_washing_machine_cycles.jpg
+
+newmtl grey-rubber
+Ns 9.803922
+Ka 0.000000 0.000000 0.000000
+Kd 0.274706 0.274706 0.274706
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd clothes_washing_machine_cycles.jpg
+
+newmtl light-grey-no-reflection
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.558553 0.558553 0.558553
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd clothes_washing_machine_cycles.jpg
+
+newmtl metal
+Ns 127.450980
+Ka 0.000000 0.000000 0.000000
+Kd 0.167479 0.167479 0.167479
+Ks 0.659574 0.659574 0.659574
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd clothes_washing_machine_cycles.jpg
+
+newmtl metal-buttons
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.334793 0.334793 0.334793
+Ks 0.672354 0.672354 0.672354
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd clothes_washing_machine_cycles.jpg
+map_d clothes_washing_machine_cycles.jpg
+
+newmtl metal-light
+Ns 145.098039
+Ka 0.000000 0.000000 0.000000
+Kd 0.314490 0.314490 0.314490
+Ks 0.569149 0.569149 0.569149
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd clothes_washing_machine_cycles.jpg
+
+newmtl plastic-door
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.547190 0.547190 0.547190
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 0.163774
+illum 2
+map_Kd clothes_washing_machine_cycles.jpg
+
+newmtl red-plastic
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.430578 0.000000 0.005946
+Ks 0.060734 0.041124 0.026834
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd clothes_washing_machine_cycles.jpg
+
+newmtl white-metal-textured
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.289000 0.289000 0.289000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd clothes_washing_machine_cycles.jpg
+
+newmtl white-metal-without-texture
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.750949 0.750949 0.750949
+Ks 0.289000 0.289000 0.289000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd clothes_washing_machine_cycles.jpg
+
+newmtl white-no-reflection
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.600759 0.600759 0.600759
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd clothes_washing_machine_cycles.jpg

@@ -13,8 +13,8 @@ public class FurnitureApplication extends Application {
 					new FurnitureListItem(R.drawable.logo, "Logo", "Logo___v7.obj"),
 					new FurnitureListItem(R.drawable.armchair, "Armchair", "armchair.obj"),
 					new FurnitureListItem(R.drawable.stereo, "Stereo", "mini_estereo_cycles_baked.obj"),
-					new FurnitureListItem(R.drawable.wash_mash, "Washing machine", "clothes_washing_machine_internal.obj"),
-					new FurnitureListItem(R.drawable.air_conditioning, "Air conditioning", "internal-air-conditioning.obj"),
+					new FurnitureListItem(R.drawable.wash_mash, "Washing machine", "ClothesWashingMachine.obj"),
+					new FurnitureListItem(R.drawable.air_conditioning, "Air conditioning", "AirConditioner.obj"),
 					new FurnitureListItem(R.drawable.lavatory, "Lavatory", "Lavatory.obj"),
 					//new FurnitureListItem(R.drawable.statue, "Statue", "Statue.obj"),
 					new FurnitureListItem(R.drawable.basketball, "Basketball", "Basketball.obj")));

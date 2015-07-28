@@ -9,7 +9,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd basketball_net_and_board_texture.jpg
+map_Kd basketball_net_and_board_texture.png
 
 newmtl basketboard_basketball_net_and_board_texture.jpg
 Ns 0.000000
@@ -19,7 +19,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd basketball_net_and_board_texture.jpg
+map_Kd basketball_net_and_board_texture.png
 
 newmtl net
 Ns 0.000000
